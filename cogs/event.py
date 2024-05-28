@@ -3,7 +3,7 @@ from discord.ext import commands
 
 # 定義名為 Main 的 Cog
 class Main(commands.Cog):
-    def __init__(self, bot: commands.Bot):
+    def __init__(self, bot: commands.bot):
         self.bot = bot
 
     # 前綴指令
@@ -19,6 +19,6 @@ class Main(commands.Cog):
         if message.content == "Hello":
             await message.channel.send("Hello, world!")
 
-# Cog 載入 Bot 中
-async def setup(bot: commands.Bot):
+# Cog 載入 bot 中
+async def setup(bot: commands.bot):
     await bot.add_cog(Main(bot))

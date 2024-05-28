@@ -1,1 +1,1 @@
-# DiscordBot_StockInquirty
+# Discordbot_StockInquirty

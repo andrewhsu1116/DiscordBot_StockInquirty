@@ -3,35 +3,42 @@ import asyncio
 import discord
 from discord.ext import commands
 
-token="MTI0MjQxNDMwMTI5MDAzNzI1OA.GWECDK.BkOwCJ9HGqYaRgF5A7RJLOWaCxAzRASA_lJmvw"
+TOKEN="MTI0MjQxNDMwMTI5MDAzNzI1OA.GWECDK.BkOwCJ9HGqYaRgF5A7RJLOWaCxAzRASA_lJmvw"
 intents = discord.Intents.all()
 bot = commands.Bot(command_prefix = "$", intents = intents)
+
 
 # 當機器人完成啟動時
 @bot.event
 async def on_ready():
     print(f"目前登入身份 --> {bot.user}")
-    slash = await bot.tree.sync()
-@bot.command()
-async def check(ctx):
-    await ctx.send(ctx)
+    
 # 載入指令程式檔案
 @bot.command()
 async def load(ctx, extension):
-    await bot.load_extension(f"cogs.{extension}")
-    await ctx.send(f"Loaded {extension} done.")  
+    try:
+        await bot.load_extension(f"cogs.{extension}")
+        await ctx.send(f"Loaded {extension} done.")
+    except Exception as e:
+        await ctx.send(f"Loaded {extension} fail.error：{e}")  
 
 # 卸載指令檔案
 @bot.command()
 async def unload(ctx, extension):
-    await bot.unload_extension(f"cogs.{extension}")
-    await ctx.send(f"UnLoaded {extension} done.")
+    try:
+        await bot.unload_extension(f"cogs.{extension}")
+        await ctx.send(f"UnLoaded {extension} done.")
+    except Exception as e:
+        await ctx.send(f"UnLoaded {extension} fail.error：{e}")
 
 # 重新載入程式檔案
 @bot.command()
 async def reload(ctx, extension):
-    await bot.reload_extension(f"cogs.{extension}")
-    await ctx.send(f"ReLoaded {extension} done.")
+    try:
+        await bot.reload_extension(f"cogs.{extension}")
+        await ctx.send(f"ReLoaded {extension} done.")
+    except Exception as e:
+        await ctx.send(f"Loaded {extension} fail.error：{e}")
 #顯示所有已載入檔案，列出所有指令的名稱和說明
 @bot.command()
 async def command_list(ctx):
@@ -47,7 +54,7 @@ async def command_list(ctx):
 
 # 一開始bot開機需載入全部程式檔案
 async def load_extensions():
-    cogs_dir = r"C:\Users\SuperUSER\Desktop\DiscordBot_StockInquirty\Master\DiscordBot_StockInquirty\cogs"
+    cogs_dir = r"C:\Users\SuperUSER\Desktop\Discordbot_StockInquirty\Master\Discordbot_StockInquirty\cogs"
     current_directory = os.getcwd()
     # 輸出當前工作目錄的路徑
     print("當前所在資料夾的路徑：", current_directory)
@@ -68,7 +75,7 @@ async def load_extensions():
 async def main():
     async with bot:
         await load_extensions()
-        await bot.start(token)
+        await bot.start(TOKEN)
 
 # 確定執行此py檔才會執行
 if __name__ == "__main__":
